@@ -2,11 +2,11 @@ import express from "express"
 import cookieParser from "cookie-parser"
 import {__dirname} from "./utils.js"
 import handlebars from "express-handlebars"
-import viewsRouter from "./src/routes/views.router.js"
-import cookieRouter from "./src/routes/cookie.router.js"
-import sessionsRouter from "./src/routes/sessions.router.js"
+import viewsRouter from "./routes/views.router.js"
+import cookieRouter from "./routes/cookie.router.js"
+import sessionsRouter from "./routes/sessions.router.js"
 import session from "express-session"
-import "./src/db/configDB.js"
+import "./db/configDB.js"
 import fileStore from "session-file-store"
 const FileStore = fileStore(session); 
 import MongoStore from "connect-mongo"
@@ -17,6 +17,8 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use(cookieParser("SecretCookie"))
+
+
 
 //Mongo DB
 
@@ -34,8 +36,9 @@ app.use(
 //Handlebars 
 
 app.engine("handlebars", handlebars.engine())
-app.set("views", path.join(__dirname + "views"))
+app.set("views", path.join(__dirname, "views"))
 app.set("view engine", "handlebars")
+//app.use(express.static('public'));
 
 //Routes
 
